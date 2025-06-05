@@ -1,26 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Binoculars, ChartLineUp, Icon, SignIn, User } from 'phosphor-react'
+import { SignIn } from 'phosphor-react'
 
 import LogoImageSrc from '@/assets/images/logo.png'
+import { pageItems } from '@/config/pages'
 
 import { SidebarContainer, SidebarFooter, SidebarHeader, SidebarNav } from './styles'
 
 interface SidebarProps {
   pathname: string
 }
-
-interface NavItemProps {
-  href: string
-  label: string
-  icon: Icon
-}
-
-const navItems: NavItemProps[] = [
-  { href: '/', label: 'Início', icon: ChartLineUp },
-  { href: '/explore', label: 'Explorar', icon: Binoculars },
-  { href: '/profile', label: 'Perfil', icon: User },
-]
 
 export function Sidebar({ pathname }: SidebarProps) {
   return (
@@ -30,7 +19,7 @@ export function Sidebar({ pathname }: SidebarProps) {
       </SidebarHeader>
 
       <SidebarNav>
-        {navItems.map(({ href, label, icon: Icon }) => (
+        {pageItems.map(({ href, label, icon: Icon }) => (
           <Link key={href} href={href} data-active={pathname === href}>
             <Icon size={24} />
             {label}

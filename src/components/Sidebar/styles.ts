@@ -1,5 +1,3 @@
-'use client'
-
 import AsideBackgroundImageSrc from '@/assets/images/aside-background.png'
 import { styled } from '@/styles/stitches.config'
 

@@ -1,9 +1,10 @@
 import type { AppProps } from 'next/app'
 import { usePathname } from 'next/navigation'
 
+import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { Sidebar } from '@/components/Sidebar'
-import { AppContainer, globalStyles } from '@/styles/global'
+import { AppContainer, globalStyles, Main } from '@/styles/global'
 
 globalStyles()
 
@@ -13,7 +14,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppContainer>
       {pathname === '/login' ? <Hero /> : <Sidebar pathname={pathname} />}
-      <Component {...pageProps} />
+      <Main>
+        {pathname !== '/login' && <Header pathname={pathname} />}
+        <Component {...pageProps} />
+      </Main>
     </AppContainer>
   )
 }

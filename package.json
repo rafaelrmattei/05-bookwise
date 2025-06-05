@@ -12,6 +12,7 @@
   "dependencies": {
     "@stitches/react": "^1.2.8",
     "next": "15.3.3",
+    "next-auth": "^4.24.11",
     "phosphor-react": "^1.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

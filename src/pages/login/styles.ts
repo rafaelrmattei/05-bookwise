@@ -1,37 +1,33 @@
 import { styled } from '@/styles/stitches.config'
 
-export const Container = styled('div', {
-  height: '100dvh',
-  display: 'grid',
-  gridTemplateColumns: 'auto 1fr',
-
-  '@media (max-width: 768px)': {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+export const LoginContainer = styled('div', {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 })
 
 export const Box = styled('div', {
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  flexDirection: 'column',
+  gap: '$4',
+  padding: '$5',
+  width: '100%',
+  maxWidth: 400,
 
-  '> div': {
+  a: {
+    all: 'unset',
+    background: '$gray600',
+    borderRadius: 8,
+    color: '$white',
+    fontSize: '$lg',
+    fontWeight: '$bold',
     display: 'flex',
-    flexDirection: 'column',
-    gap: '$4',
-
-    '> img': {
-      marginBottom: '$2',
-
-      '@media (min-width: 769px)': {
-        display: 'none',
-      },
-    },
-
-    '@media (min-width: 769px)': {
-      width: 370,
-    },
+    alignItems: 'center',
+    padding: '$5 $6',
+    gap: '$5',
+    cursor: 'pointer',
   },
 })
 

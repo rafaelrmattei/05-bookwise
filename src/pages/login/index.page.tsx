@@ -1,30 +1,28 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
-import GitHubImageSrc from '@/assets/images/github.png'
-import GoogleImageSrc from '@/assets/images/google.png'
-import LogoImageSrc from '@/assets/images/logo.png'
-import RocketImageSrc from '@/assets/images/rocket.png'
-import { LoginButton } from '@/components/Buttons/Login'
+import VisitorImageSrc from '@/assets/images/rocket.png'
+import { SocialLogin } from '@/components/Buttons/SocialLogin'
 
-import { Box, Container, Titles } from './styles'
+import { Box, LoginContainer, Titles } from './styles'
 
 export default function Login() {
   return (
-    <Container>
+    <LoginContainer>
       <Box>
-        <div>
-          <Image src={LogoImageSrc} width={223} height={43} alt="BookWise Logo" />
+        <Titles>
+          <h1>Boas vindas!</h1>
+          <h2>Faça seu login ou acesse como visitante</h2>
+        </Titles>
 
-          <Titles>
-            <h1>Boas vindas!</h1>
-            <h2>Faça seu login ou acesse como visitante</h2>
-          </Titles>
+        <SocialLogin type="google" />
+        <SocialLogin type="github" />
 
-          <LoginButton src={GoogleImageSrc} title="Entrar com Google" />
-          <LoginButton src={GitHubImageSrc} title="Entrar com GitHub" />
-          <LoginButton src={RocketImageSrc} title="Acessar como visitante" />
-        </div>
+        <Link href={'/'}>
+          <Image src={VisitorImageSrc} width={32} height={32} alt="Entrar como visitante" />
+          <span>Entrar como visitante</span>
+        </Link>
       </Box>
-    </Container>
+    </LoginContainer>
   )
 }
