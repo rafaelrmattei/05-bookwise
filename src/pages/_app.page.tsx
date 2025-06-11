@@ -1,23 +1,18 @@
 import type { AppProps } from 'next/app'
-import { usePathname } from 'next/navigation'
+import { Nunito } from 'next/font/google'
+import { SessionProvider } from 'next-auth/react'
 
-import { Header } from '@/components/Header'
-import { Hero } from '@/components/Hero'
-import { Sidebar } from '@/components/Sidebar'
-import { AppContainer, globalStyles, Main } from '@/styles/global'
+import { globalStyles } from '@/styles/global'
+const nunito = Nunito({ subsets: ['latin'] })
 
 globalStyles()
 
-export default function App({ Component, pageProps }: AppProps) {
-  const pathname = usePathname()
-
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <AppContainer>
-      {pathname === '/login' ? <Hero /> : <Sidebar pathname={pathname} />}
-      <Main>
-        {pathname !== '/login' && <Header pathname={pathname} />}
+    <SessionProvider session={session}>
+      <div className={nunito.className}>
         <Component {...pageProps} />
-      </Main>
-    </AppContainer>
+      </div>
+    </SessionProvider>
   )
 }

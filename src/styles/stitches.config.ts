@@ -3,7 +3,7 @@ import { createStitches } from '@stitches/react'
 export const { styled, css, getCssText, globalCss, theme } = createStitches({
   theme: {
     fonts: {
-      default: 'Nunito Sans, sans-serif',
+      default: 'Nunito, Nunito Fallback',
     },
 
     space: {
@@ -59,6 +59,7 @@ export const { styled, css, getCssText, globalCss, theme } = createStitches({
 
       gray100: '#F8F9FC',
       gray200: '#E6E8F2',
+      gray20010: 'rgba(230, 232, 242, .1)',
       gray20030: 'rgba(230, 232, 242, .3)',
       gray300: '#D1D6E4',
       gray400: '#8D95AF',
@@ -67,13 +68,17 @@ export const { styled, css, getCssText, globalCss, theme } = createStitches({
       gray700: '#181C2A',
       gray800: '#0E1116',
 
+      red200: '#F75A68',
+
       'gradient-vertical': `linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)`,
       'gradient-horizontal': `linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%)`,
     },
 
     radii: {
       xs: '2.5px',
+      '2xs': '4px',
       sm: '5px',
+      '2sm': '8px',
       md: '10px',
       lg: '12px',
       xl: '20px',

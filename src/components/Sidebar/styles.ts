@@ -93,3 +93,49 @@ export const SidebarFooter = styled('div', {
     },
   },
 })
+
+export const User = styled('div', {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '$3',
+  color: '$gray200',
+
+  span: {
+    fontSize: '$sm',
+    fontWeight: '$regular',
+  },
+})
+
+export const Avatar = styled('div', {
+  backgroundImage: '$gradient-vertical',
+  borderRadius: '$full',
+  padding: '$px',
+  width: 32,
+  height: 32,
+
+  img: {
+    borderRadius: '$full',
+  },
+})
+
+export const SignOutButton = styled('button', {
+  all: 'unset',
+  cursor: 'pointer',
+  lineHeight: '0',
+  transition: '.4s',
+  borderRadius: '$2xs',
+  width: 32,
+  height: 32,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  svg: {
+    color: '$red200',
+  },
+
+  '&:hover': {
+    backgroundColor: '$gray20010',
+  },
+})

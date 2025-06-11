@@ -1,6 +1,25 @@
 import { styled } from '@/styles/stitches.config'
 
 export const LoginContainer = styled('div', {
+  height: '100dvh',
+  display: 'grid',
+  gridTemplateColumns: 'auto 1fr',
+  padding: '$5',
+  position: 'relative',
+  overflow: 'hidden',
+})
+
+export const Hero = styled('div', {
+  borderRadius: '$lg',
+  maxHeight: 'calc(100dvh - 2.5rem)',
+
+  img: {
+    width: '100%',
+    maxHeight: 'calc(100dvh - 2.5rem)',
+  },
+})
+
+export const LoginOptions = styled('div', {
   width: '100%',
   height: '100%',
   display: 'flex',
