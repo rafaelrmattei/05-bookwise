@@ -1,15 +1,13 @@
-import { Sidebar } from '@/components/Sidebar'
-import { NotFoundContainer } from '@/styles/global'
+import { Layout } from '@/components/Layout'
+import { NotFoundContainer } from '@/components/Layout/styles'
 
 export default function NotFound() {
   return (
-    <>
-      <Sidebar />
-
+    <Layout>
       <NotFoundContainer>
         <h1>404: Página não encontrada</h1>
         <h2>Foi mals.. : /</h2>
       </NotFoundContainer>
-    </>
+    </Layout>
   )
 }
