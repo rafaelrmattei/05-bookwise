@@ -107,18 +107,6 @@ export const User = styled('div', {
   },
 })
 
-export const Avatar = styled('div', {
-  backgroundImage: '$gradient-vertical',
-  borderRadius: '$full',
-  padding: '$px',
-  width: 32,
-  height: 32,
-
-  img: {
-    borderRadius: '$full',
-  },
-})
-
 export const SignOutButton = styled('button', {
   all: 'unset',
   cursor: 'pointer',

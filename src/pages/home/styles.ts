@@ -7,7 +7,7 @@ export const HomeContainer = styled('div', {
   maxHeight: 'inherit',
 })
 
-export const Rates = styled('div', {
+export const Reviews = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$10',

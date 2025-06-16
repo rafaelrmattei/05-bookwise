@@ -1,41 +1,59 @@
+import { useSession } from 'next-auth/react'
 import { CaretRight } from 'phosphor-react'
 
-import { RatingCard } from '@/components/Card/Rating'
+import { BookCard } from '@/components/Card/Book'
+import { ReviewCard } from '@/components/Card/Review'
 import { Layout } from '@/components/Layout'
 
-import { HeadingCards, HomeContainer, LastReading, MostRecent, PopularBooks, Rates } from './styles'
+import { HeadingCards, HomeContainer, LastReading, MostRecent, PopularBooks, Reviews } from './styles'
 
 export default function Home() {
+  const { data: session } = useSession()
+
   return (
     <Layout>
       <HomeContainer>
-        <Rates>
-          <LastReading>
-            <HeadingCards>
-              <h2>Sua última leitura</h2>
-              <button>
-                Ver todas <CaretRight size={16} />
-              </button>
-            </HeadingCards>
-            <RatingCard profile={false} active />
-          </LastReading>
+        <Reviews>
+          {session && (
+            <LastReading>
+              <HeadingCards>
+                <h2>Sua última leitura</h2>
+                <button>
+                  Ver todas <CaretRight size={16} />
+                </button>
+              </HeadingCards>
+
+              <ReviewCard active />
+            </LastReading>
+          )}
+
           <MostRecent>
             <HeadingCards>
               <h2>Avaliações mais recentes</h2>
             </HeadingCards>
-            <RatingCard />
-            <RatingCard />
-            <RatingCard />
+
+            <ReviewCard key={1} />
+            <ReviewCard key={2} />
+            <ReviewCard key={3} />
           </MostRecent>
-        </Rates>
-        <PopularBooks>
-          <HeadingCards>
-            <h2>Livros populares</h2>
-            <button>
-              Ver todas <CaretRight size={16} />
-            </button>
-          </HeadingCards>
-        </PopularBooks>
+        </Reviews>
+
+        <Reviews>
+          <PopularBooks>
+            <HeadingCards>
+              <h2>Livros populares</h2>
+              <button>
+                Ver todas <CaretRight size={16} />
+              </button>
+            </HeadingCards>
+
+            <BookCard readed />
+            <BookCard readed />
+            <BookCard />
+            <BookCard />
+            <BookCard />
+          </PopularBooks>
+        </Reviews>
       </HomeContainer>
     </Layout>
   )
