@@ -7,7 +7,7 @@ export const HomeContainer = styled('div', {
   maxHeight: 'inherit',
 })
 
-export const Reviews = styled('div', {
+export const Ratings = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$10',
@@ -39,7 +39,7 @@ export const HeadingCards = styled('div', {
     fontWeight: '$regular',
   },
 
-  button: {
+  a: {
     all: 'unset',
     cursor: 'pointer',
     color: '$purple100',

@@ -1,59 +1,87 @@
+import { useQueries } from '@tanstack/react-query'
+import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { CaretRight } from 'phosphor-react'
 
+import { PopularBook, RatingWithBookAndUser } from '@/@types/rating'
 import { BookCard } from '@/components/Card/Book'
-import { ReviewCard } from '@/components/Card/Review'
+import { RatingCard } from '@/components/Card/Rating'
 import { Layout } from '@/components/Layout'
+import { api } from '@/lib/axios'
 
-import { HeadingCards, HomeContainer, LastReading, MostRecent, PopularBooks, Reviews } from './styles'
+import { HeadingCards, HomeContainer, LastReading, MostRecent, PopularBooks, Ratings } from './styles'
 
 export default function Home() {
   const { data: session } = useSession()
 
+  const [LastReadingBySessionUserQuery, LatestRatingsQuery, PopularBooksByRatingQuery] = useQueries({
+    queries: [
+      {
+        queryKey: ['last-reading-session-user'],
+        queryFn: async () => api.get<RatingWithBookAndUser>('/ratings/last').then((res) => res.data),
+      },
+      {
+        queryKey: ['latest-ratings'],
+        queryFn: async () => api.get<RatingWithBookAndUser[]>('/ratings').then((res) => res.data),
+      },
+      {
+        queryKey: ['popular-books-by-rating'],
+        queryFn: async () => api.get<PopularBook[]>('/ratings/popular').then((res) => res.data),
+      },
+    ],
+  })
+
+  const { data: LastReadingBySessionUser } = LastReadingBySessionUserQuery
+  const { data: LatestRatings } = LatestRatingsQuery
+  const { data: PopularBooksByRating } = PopularBooksByRatingQuery
+
+  console.log(PopularBooksByRating)
+
   return (
     <Layout>
       <HomeContainer>
-        <Reviews>
-          {session && (
+        <Ratings>
+          {LastReadingBySessionUser && session && (
             <LastReading>
               <HeadingCards>
                 <h2>Sua última leitura</h2>
-                <button>
+                <Link href="profile">
                   Ver todas <CaretRight size={16} />
-                </button>
+                </Link>
               </HeadingCards>
 
-              <ReviewCard active />
+              <RatingCard rating={LastReadingBySessionUser} active />
             </LastReading>
           )}
 
-          <MostRecent>
-            <HeadingCards>
-              <h2>Avaliações mais recentes</h2>
-            </HeadingCards>
+          {LatestRatings && (
+            <MostRecent>
+              <HeadingCards>
+                <h2>Avaliações mais recentes</h2>
+              </HeadingCards>
+              {LatestRatings.map((rating) => (
+                <RatingCard key={rating.id} rating={rating} />
+              ))}
+            </MostRecent>
+          )}
+        </Ratings>
 
-            <ReviewCard key={1} />
-            <ReviewCard key={2} />
-            <ReviewCard key={3} />
-          </MostRecent>
-        </Reviews>
+        {PopularBooksByRating && (
+          <Ratings>
+            <PopularBooks>
+              <HeadingCards>
+                <h2>Livros populares</h2>
+                <Link href="explore">
+                  Ver todas <CaretRight size={16} />
+                </Link>
+              </HeadingCards>
 
-        <Reviews>
-          <PopularBooks>
-            <HeadingCards>
-              <h2>Livros populares</h2>
-              <button>
-                Ver todas <CaretRight size={16} />
-              </button>
-            </HeadingCards>
-
-            <BookCard readed />
-            <BookCard readed />
-            <BookCard />
-            <BookCard />
-            <BookCard />
-          </PopularBooks>
-        </Reviews>
+              {PopularBooksByRating.map((popularBook) => (
+                <BookCard key={popularBook.bookId} book={popularBook} />
+              ))}
+            </PopularBooks>
+          </Ratings>
+        )}
       </HomeContainer>
     </Layout>
   )

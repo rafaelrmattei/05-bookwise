@@ -73,7 +73,7 @@ CREATE TABLE "Rating" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "bookId" TEXT NOT NULL,
-    "rate" INTEGER NOT NULL,
+    "rate" DOUBLE PRECISION NOT NULL,
     "description" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

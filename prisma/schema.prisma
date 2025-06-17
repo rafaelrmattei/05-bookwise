@@ -85,7 +85,7 @@ model Rating {
   id          String   @id @default(uuid())
   userId      String
   bookId      String
-  rate        Int
+  rate        Float
   description String   @db.Text
   createdAt   DateTime @default(now())
 

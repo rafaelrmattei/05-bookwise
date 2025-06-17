@@ -1,6 +1,6 @@
 import { styled } from '@/styles/stitches.config'
 
-export const ReviewCardContainer = styled('article', {
+export const RatingCardContainer = styled('article', {
   position: 'relative',
   width: '100%',
   padding: '$8',
@@ -46,7 +46,7 @@ export const Profile = styled('div', {
   },
 })
 
-export const Book = styled('div', {
+export const Rating = styled('div', {
   display: 'flex',
   gap: '$8',
   color: '$gray300',
@@ -55,6 +55,7 @@ export const Book = styled('div', {
     display: 'flex',
     flexDirection: 'column',
     gap: '$3',
+    width: '100%',
   },
 })
 
@@ -85,7 +86,7 @@ export const BookInfo = styled('div', {
   },
 })
 
-export const ExpandableInfo = styled('p', {
+export const Description = styled('p', {
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
   overflow: 'hidden',
