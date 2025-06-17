@@ -35,8 +35,6 @@ export default function Home() {
   const { data: LatestRatings } = LatestRatingsQuery
   const { data: PopularBooksByRating } = PopularBooksByRatingQuery
 
-  console.log(PopularBooksByRating)
-
   return (
     <Layout>
       <HomeContainer>

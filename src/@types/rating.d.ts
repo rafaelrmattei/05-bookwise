@@ -12,5 +12,5 @@ export type PopularBook = {
   coverUrl: string
   title: string
   author: string
-  rateAvg: bigint
+  rateAvg: number
 }

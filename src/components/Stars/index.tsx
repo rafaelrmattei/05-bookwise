@@ -3,10 +3,10 @@ import { Star, StarHalf } from 'phosphor-react'
 import { StarsContainer } from './styles'
 
 interface StarsProps {
-  rate: bigint
+  rate: number
 }
 
-export function Stars({ rate = BigInt(0) }: StarsProps) {
+export function Stars({ rate = 0 }: StarsProps) {
   return (
     <StarsContainer>
       {[...Array(5)].map((_, index) => {
