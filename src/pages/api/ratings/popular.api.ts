@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     FROM "Rating" r
     JOIN "Book" b ON b.id = r."bookId"
     GROUP BY r."bookId", b.title, b.author, b."coverUrl"
-    ORDER BY AVG(r.rate) DESC
+    ORDER BY AVG(r.rate) DESC, RANDOM()
     LIMIT 3;
   `
 

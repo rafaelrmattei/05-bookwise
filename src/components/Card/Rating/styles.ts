@@ -57,6 +57,10 @@ export const Rating = styled('div', {
     gap: '$3',
     width: '100%',
   },
+
+  img: {
+    height: 'auto',
+  },
 })
 
 export const BookInfo = styled('div', {
