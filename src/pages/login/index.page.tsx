@@ -3,37 +3,30 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 
-import HeroBackgroundImageSrc from '@/assets/images/hero-background.png'
 import VisitorImageSrc from '@/assets/images/rocket.png'
 import { SocialLogin } from '@/components/Form/Buttons/SocialLogin'
 import { pageLoginRedirect } from '@/config/pages'
 
 import { authOptions } from '../api/auth/[...nextauth].api'
-import { Box, Hero, LoginContainer, LoginOptions, Titles } from './styles'
+import { Box, LoginContainer, Titles } from './styles'
 
 export default function Login() {
   return (
     <LoginContainer>
-      <Hero>
-        <Image src={HeroBackgroundImageSrc} quality={100} alt="BookWise" priority />
-      </Hero>
+      <Box>
+        <Titles>
+          <h1>Boas vindas!</h1>
+          <h2>Faça seu login ou acesse como visitante</h2>
+        </Titles>
 
-      <LoginOptions>
-        <Box>
-          <Titles>
-            <h1>Boas vindas!</h1>
-            <h2>Faça seu login ou acesse como visitante</h2>
-          </Titles>
+        <SocialLogin provider="google" />
+        <SocialLogin provider="github" />
 
-          <SocialLogin provider="google" />
-          <SocialLogin provider="github" />
-
-          <Link href={pageLoginRedirect}>
-            <Image src={VisitorImageSrc} width={32} height={32} alt="Entrar como visitante" />
-            <span>Entrar como visitante</span>
-          </Link>
-        </Box>
-      </LoginOptions>
+        <Link href={pageLoginRedirect}>
+          <Image src={VisitorImageSrc} width={32} height={32} alt="Entrar como visitante" />
+          <span>Entrar como visitante</span>
+        </Link>
+      </Box>
     </LoginContainer>
   )
 }

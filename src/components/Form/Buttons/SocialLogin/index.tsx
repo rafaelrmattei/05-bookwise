@@ -39,3 +39,5 @@ export function SocialLogin({ provider, ...props }: LoginButtonProps) {
     </Button>
   )
 }
+
+SocialLogin.displayName = 'FormButtonSocialLogin'

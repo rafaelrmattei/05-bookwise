@@ -1,22 +1,28 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { SignIn, SignOut } from 'phosphor-react'
+import { useCallback } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import LogoImageSrc from '@/assets/images/logo.png'
 import { pageItems, pageLogoutRedirect } from '@/config/pages'
+import { SessionContext } from '@/contexts/Session/SessionContext'
 
 import { Avatar } from '../Avatar'
 import { SidebarContainer, SidebarFooter, SidebarHeader, SidebarNav, SignOutButton, User } from './styles'
 
-export function Sidebar() {
-  const pathname = usePathname()
-  const { data: session, status } = useSession()
+interface SidebarProps {
+  pathname: string
+}
 
-  function handleSignOutClick() {
+export function Sidebar({ pathname }: SidebarProps) {
+  const session = useContextSelector(SessionContext, (context) => context.session)
+  const status = useContextSelector(SessionContext, (context) => context.status)
+
+  const handleSignOutClick = useCallback(() => {
     signOut({ callbackUrl: '/login' })
-  }
+  }, [])
 
   return (
     <SidebarContainer>
@@ -58,3 +64,5 @@ export function Sidebar() {
     </SidebarContainer>
   )
 }
+
+Sidebar.displayName = 'Sidebar'

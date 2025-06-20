@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { memo } from 'react'
 
 import { getInitialsFromName } from '@/utils/get-initials-from-name'
 
@@ -9,7 +10,7 @@ interface AvatarProps {
   name?: string | null
 }
 
-export function Avatar({ image, name }: AvatarProps) {
+function AvatarComponent({ image, name }: AvatarProps) {
   return (
     <AvatarContainer>
       {image ? (
@@ -20,3 +21,7 @@ export function Avatar({ image, name }: AvatarProps) {
     </AvatarContainer>
   )
 }
+
+AvatarComponent.displayName = 'Avatar'
+
+export const Avatar = memo(AvatarComponent)

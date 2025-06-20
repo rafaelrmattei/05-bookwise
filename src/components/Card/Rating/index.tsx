@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 
 import { RatingWithBookAndUser } from '@/@types/rating'
 import { Avatar } from '@/components/Avatar'
@@ -14,7 +14,7 @@ interface RatingCardProps {
   rating: RatingWithBookAndUser
 }
 
-export function RatingCard({ active = false, rating }: RatingCardProps) {
+function RatingCardComponent({ active = false, rating }: RatingCardProps) {
   const [expandedDescription, setExpandedDescription] = useState(false)
   const [expansiveDescription, setExpansiveDescription] = useState(false)
   const DescriptionElementHtml = useRef<HTMLParagraphElement>(null)
@@ -68,3 +68,7 @@ export function RatingCard({ active = false, rating }: RatingCardProps) {
     </RatingCardContainer>
   )
 }
+
+RatingCardComponent.displayName = 'RatingCard'
+
+export const RatingCard = memo(RatingCardComponent)

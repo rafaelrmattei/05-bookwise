@@ -21,3 +21,5 @@ export function Stars({ rate = 0 }: StarsProps) {
     </StarsContainer>
   )
 }
+
+Stars.displayName = 'Stars'

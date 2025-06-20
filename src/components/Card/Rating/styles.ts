@@ -59,6 +59,7 @@ export const Rating = styled('div', {
   },
 
   img: {
+    width: 'auto',
     height: 'auto',
   },
 })

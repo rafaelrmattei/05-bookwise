@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { memo } from 'react'
 
 import { PopularBook } from '@/@types/rating'
 import { Stars } from '@/components/Stars'
@@ -10,7 +11,7 @@ interface BookCardProps {
   book: PopularBook
 }
 
-export function BookCard({ readed = false, book }: BookCardProps) {
+function BookCardComponent({ readed = false, book }: BookCardProps) {
   return (
     <BookCardContainer>
       {readed && <ReadedFlag>LIDO</ReadedFlag>}
@@ -25,3 +26,7 @@ export function BookCard({ readed = false, book }: BookCardProps) {
     </BookCardContainer>
   )
 }
+
+BookCardComponent.displayName = 'BookCard'
+
+export const BookCard = memo(BookCardComponent)

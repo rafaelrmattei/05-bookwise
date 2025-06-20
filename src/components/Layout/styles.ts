@@ -15,6 +15,7 @@ export const Wrapper = styled('div', {
 })
 
 export const Main = styled('main', {
+  height: 'calc(100dvh - 170px)',
   maxHeight: 'calc(100dvh - 170px)',
 })
 

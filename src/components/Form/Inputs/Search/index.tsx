@@ -19,3 +19,5 @@ export function SearchInput({ icon: Icon, full, ...props }: SearchInputProps) {
     </SearchInputContainer>
   )
 }
+
+SearchInput.displayName = 'FormButtonSearchInput'

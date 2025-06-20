@@ -1,5 +1,5 @@
-import { Layout } from '@/components/Layout'
+import { ProfileContainer } from './styles'
 
 export default function Profile() {
-  return <Layout></Layout>
+  return <ProfileContainer></ProfileContainer>
 }
