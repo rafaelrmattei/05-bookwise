@@ -14,13 +14,15 @@ interface LayoutProps {
 }
 
 export function Layout({ children }: LayoutProps) {
-  const pathname = usePathname()
+  const pathname = usePathname() || '/'
+  const first = pathname.split('/')[1] || ''
+  const rootPath = first ? `/${first}` : first
 
   return (
     <LayoutContainer>
-      {['/', '/login'].includes(pathname) ? <Hero /> : <Sidebar pathname={pathname} />}
+      {['/', '/login'].includes(rootPath) ? <Hero /> : <Sidebar pathname={rootPath} />}
       <Wrapper>
-        <Header pathname={pathname} />
+        <Header pathname={rootPath} />
         <Main>{children}</Main>
       </Wrapper>
     </LayoutContainer>

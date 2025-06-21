@@ -21,7 +21,7 @@ export const Main = styled('main', {
 
 export const NotFoundContainer = styled('div', {
   width: '100%',
-  height: 'calc(100dvh - 2.5rem)',
+  height: 'calc(100dvh - 170px)',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

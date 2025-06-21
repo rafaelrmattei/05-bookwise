@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { memo } from 'react'
 
 import { getInitialsFromName } from '@/utils/get-initials-from-name'
 
@@ -8,13 +7,14 @@ import { AvatarContainer } from './styles'
 interface AvatarProps {
   image?: string | null
   name?: string | null
+  size?: 'sm' | 'lg'
 }
 
-function AvatarComponent({ image, name }: AvatarProps) {
+export function Avatar({ image, name, size }: AvatarProps) {
   return (
-    <AvatarContainer>
+    <AvatarContainer size={size}>
       {image ? (
-        <Image src={image} width={32} height={32} quality={100} alt={name ?? 'User'} />
+        <Image src={image} width={72} height={72} quality={100} alt={name ?? 'User'} />
       ) : (
         <span>{getInitialsFromName(name ?? 'Book Wise')}</span>
       )}
@@ -22,6 +22,4 @@ function AvatarComponent({ image, name }: AvatarProps) {
   )
 }
 
-AvatarComponent.displayName = 'Avatar'
-
-export const Avatar = memo(AvatarComponent)
+Avatar.displayName = 'Avatar'

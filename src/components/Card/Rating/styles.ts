@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { styled } from '@/styles/stitches.config'
 
 export const RatingCardContainer = styled('article', {
@@ -24,9 +26,11 @@ export const Header = styled('div', {
   justifyContent: 'space-between',
 })
 
-export const Profile = styled('div', {
+export const Profile = styled(Link, {
+  all: 'unset',
   display: 'inline-flex',
   gap: '$4',
+  cursor: 'pointer',
 
   div: {
     display: 'flex',
