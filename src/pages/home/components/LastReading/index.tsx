@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useContextSelector } from 'use-context-selector'
 
-import { RatingWithBookAndUser } from '@/@types/rating'
+import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
 import { SessionContext } from '@/contexts/Session/SessionContext'
 import { api } from '@/lib/axios'
@@ -14,7 +14,7 @@ export function LastReading() {
 
   const { data: LastReadingBySessionUser } = useQuery({
     queryKey: ['last-reading-session-user'],
-    queryFn: async () => api.get<RatingWithBookAndUser>('/ratings/last').then((res) => res.data),
+    queryFn: async () => api.get<RatingWithBookAndUserType>('/ratings/last').then((res) => res.data),
     staleTime: 1000 * 60,
   })
 
@@ -23,7 +23,7 @@ export function LastReading() {
       <LastReadingContainer>
         <HeadingCards title="Sua última leitura" link={{ title: 'Ver todas', href: 'profile' }} />
 
-        <RatingCard rating={LastReadingBySessionUser} active />
+        <RatingCard rating={LastReadingBySessionUser} type="LastReading" />
       </LastReadingContainer>
     )
   }

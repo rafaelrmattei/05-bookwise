@@ -7,16 +7,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end()
   }
 
-  const idParam = req.query.id
+  const idParam = req.query.user
   const id = Array.isArray(idParam) ? idParam[0] : idParam
 
-  const result = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { id },
   })
 
-  if (!result) {
+  if (!user) {
     return res.status(404).json({ error: 'User not found' })
   }
 
-  return res.status(200).json(result)
+  const results = await prisma.rating.findMany({
+    orderBy: { createdAt: 'desc' },
+    include: { user: true, book: true },
+    where: {
+      userId: id,
+    },
+  })
+
+  return res.status(200).json(results)
 }

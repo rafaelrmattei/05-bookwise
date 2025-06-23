@@ -1,5 +1,5 @@
 import { LastReading } from './components/LastReading'
-import { MostRecent } from './components/MostRecent'
+import { LatestRatings } from './components/LatestRatings'
 import { PopularBooks } from './components/PopularBooks'
 import { HomeContainer, Ratings } from './styles'
 
@@ -8,7 +8,7 @@ export default function Home() {
     <HomeContainer>
       <Ratings>
         <LastReading />
-        <MostRecent />
+        <LatestRatings />
       </Ratings>
 
       <PopularBooks />

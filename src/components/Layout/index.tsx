@@ -20,7 +20,7 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <LayoutContainer>
-      {['/', '/login'].includes(rootPath) ? <Hero /> : <Sidebar pathname={rootPath} />}
+      {['/', '', '/login'].includes(rootPath) ? <Hero /> : <Sidebar pathname={rootPath} />}
       <Wrapper>
         <Header pathname={rootPath} />
         <Main>{children}</Main>

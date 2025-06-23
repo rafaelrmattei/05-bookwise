@@ -1,13 +1,13 @@
 import Image from 'next/image'
 
-import { PopularBook } from '@/@types/rating'
+import { PopularBookType } from '@/@types/book'
 import { Stars } from '@/components/Stars'
 
 import { BookCardContainer, Header, Info, ReadedFlag } from './styles'
 
 interface BookCardProps {
   readed?: boolean
-  book: PopularBook
+  book: PopularBookType
 }
 
 export function BookCard({ readed = false, book }: BookCardProps) {

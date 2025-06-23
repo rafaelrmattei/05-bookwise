@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 
 import { prisma } from '@/lib/prisma'
 
-import { authOptions } from '../../auth/[...nextauth].api'
+import { authOptions } from '../../../auth/[...nextauth].api'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {

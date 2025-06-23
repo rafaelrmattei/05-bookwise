@@ -1,19 +1,19 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 
-import { RatingWithBookAndUser } from '@/@types/rating'
+import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
 import { api } from '@/lib/axios'
 
 import { HeadingCards } from '../HeadingCards'
-import { Loader, LoaderContainer, MostRecentContainer } from './styles'
+import { LatestRatingsContainer, Loader, LoaderContainer } from './styles'
 
 interface RatingPage {
-  ratings: RatingWithBookAndUser[]
+  ratings: RatingWithBookAndUserType[]
   hasMore: boolean
 }
 
-export function MostRecent() {
+export function LatestRatings() {
   const loadMoreLatestRatings = useRef<HTMLDivElement | null>(null)
 
   const {
@@ -25,7 +25,7 @@ export function MostRecent() {
     queryKey: ['latest-ratings'],
     initialPageParam: 1,
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await api.get(`/ratings/${pageParam}`)
+      const res = await api.get(`/ratings/page/${pageParam}`)
       return res.data
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -51,19 +51,19 @@ export function MostRecent() {
 
   if (LatestRatings) {
     return (
-      <MostRecentContainer>
+      <LatestRatingsContainer>
         <HeadingCards title="Avaliações mais recentes" />
 
-        {LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} />))}
+        {LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
 
         {hasNextPage && (
           <LoaderContainer ref={loadMoreLatestRatings}>
             <Loader />
           </LoaderContainer>
         )}
-      </MostRecentContainer>
+      </LatestRatingsContainer>
     )
   }
 }
 
-MostRecent.displayName = 'MostRecent'
+LatestRatings.displayName = 'LatestRatings'

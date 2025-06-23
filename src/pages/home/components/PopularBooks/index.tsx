@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { PopularBook } from '@/@types/rating'
+import { PopularBookType } from '@/@types/book'
 import { BookCard } from '@/components/Card/Book'
 import { api } from '@/lib/axios'
 
@@ -10,7 +10,7 @@ import { PopularBooksContainer } from './styles'
 export function PopularBooks() {
   const { data: PopularBooksByRating } = useQuery({
     queryKey: ['popular-books-by-rating'],
-    queryFn: async () => api.get<PopularBook[]>('/ratings/popular').then((res) => res.data),
+    queryFn: async () => api.get<PopularBookType[]>('/books/popular').then((res) => res.data),
     staleTime: 1000 * 60,
   })
 

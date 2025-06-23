@@ -1,72 +1,65 @@
+import { User } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
-import { BookmarkSimple, BookOpen, Books, UserList } from 'phosphor-react'
+import { useMemo, useState } from 'react'
 
-import { UserWithStatistics } from '@/@types/user'
-import { Avatar } from '@/components/Avatar'
+import { BookStatisticsType } from '@/@types/book'
+import { RatingWithBookAndUserType } from '@/@types/rating'
+import { RatingCard } from '@/components/Card/Rating'
 import { SearchInput } from '@/components/Form/Inputs/Search'
 import { api } from '@/lib/axios'
 
 import { authOptions } from '../api/auth/[...nextauth].api'
-import { Analytics, Divider, ProfileContainer, Profiler, Ratings, Statistic, Statistics, UserDetails } from './styles'
+import { Statistics } from './components/statistics'
+import { UserDetails } from './components/user'
+import { Analytics, Divider, NotFound, ProfileContainer, Ratings } from './styles'
 
 interface ProfileProps {
-  ratings: string
-  profile: UserWithStatistics
+  user: User
+  statistics: BookStatisticsType
 }
 
-export default function Profile({ ratings, profile }: ProfileProps) {
-  console.log(ratings)
+export default function Profile({ user, statistics }: ProfileProps) {
+  const [search, setSearch] = useState('')
+
+  const { data: RatingsByUser } = useQuery({
+    queryKey: ['ratings-by-user', user.id],
+    queryFn: async () => await api.get<RatingWithBookAndUserType[]>(`/ratings/${user.id}`).then((res) => res.data),
+    staleTime: 1000 * 60 * 1,
+  })
+
+  const filteredRatings = useMemo(() => {
+    if (!RatingsByUser) return []
+    return RatingsByUser.filter((rating) => {
+      const query = search.toLowerCase()
+      return (
+        rating.book.title.toLowerCase().includes(query) ||
+        rating.book.author.toLowerCase().includes(query) ||
+        rating.description.toLowerCase().includes(query)
+      )
+    })
+  }, [RatingsByUser, search])
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value)
+  }
 
   return (
     <ProfileContainer>
       <Ratings>
-        <SearchInput placeholder="Buscar livro avaliado" full />
+        <SearchInput placeholder="Buscar livro avaliado" value={search} onChange={handleSearch} full />
+        {filteredRatings.length > 0 ? (
+          filteredRatings.map((rating) => <RatingCard key={rating.id} rating={rating} type="User" />)
+        ) : (
+          <NotFound>Nenhum resultado encontrado.</NotFound>
+        )}
       </Ratings>
 
       <Analytics>
-        <Profiler>
-          <Avatar image={profile.user.image} name={profile.user.name} size="lg" />
-          <UserDetails>
-            <strong>{profile.user.name}</strong>
-            <span>Membro desde {new Date(profile.user.createdAt).getFullYear()}</span>
-          </UserDetails>
-        </Profiler>
-
+        <UserDetails user={user} />
         <Divider />
-
-        {profile.statistics.totalPagesReaded && (
-          <Statistics>
-            <Statistic>
-              <BookOpen size={32} />
-              <div>
-                <strong>{profile.statistics.totalPagesReaded}</strong>
-                <span>Páginas lidas</span>
-              </div>
-            </Statistic>
-            <Statistic>
-              <Books size={32} />
-              <div>
-                <strong>{profile.statistics.totalBooksReaded}</strong>
-                <span>Livros avaliados</span>
-              </div>
-            </Statistic>
-            <Statistic>
-              <UserList size={32} />
-              <div>
-                <strong>{profile.statistics.totalAuthorsReaded}</strong>
-                <span>Autores lidos</span>
-              </div>
-            </Statistic>
-            <Statistic>
-              <BookmarkSimple size={32} />
-              <div>
-                <strong>{profile.statistics.mostReadedCategory}</strong>
-                <span>Categoria mais lida</span>
-              </div>
-            </Statistic>
-          </Statistics>
-        )}
+        <Statistics statistics={statistics} />
       </Analytics>
     </ProfileContainer>
   )
@@ -80,23 +73,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!clientId) {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
     }
   }
 
   try {
-    const { data: profile } = await api.get<UserWithStatistics>(`/users/${clientId}`)
-    const { data: ratings } = await api.get<UserWithStatistics>(`/ratings/${clientId}`)
+    const { data: statistics } = await api.get<BookStatisticsType>(`/books/user/${clientId}`)
+    const { data: user } = await api.get<User>(`/users/${clientId}`)
 
     return {
       props: {
-        ratings,
-        profile,
+        user,
+        statistics,
       },
     }
   } catch {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
     }
   }
 }

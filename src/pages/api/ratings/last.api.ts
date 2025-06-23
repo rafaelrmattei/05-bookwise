@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const userId = session.user.id
 
-  const results = await prisma.rating.findFirst({
+  const result = await prisma.rating.findFirst({
     orderBy: { createdAt: 'desc' },
     include: { user: true, book: true },
     where: {
@@ -26,5 +26,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   })
 
-  return res.status(200).json(results)
+  return res.status(200).json(result)
 }

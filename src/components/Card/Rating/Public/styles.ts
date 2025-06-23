@@ -11,14 +11,6 @@ export const RatingCardContainer = styled('article', {
   flexDirection: 'column',
   backgroundColor: '$gray700',
   gap: '$8',
-
-  variants: {
-    active: {
-      true: {
-        backgroundColor: '$gray600',
-      },
-    },
-  },
 })
 
 export const Header = styled('div', {
@@ -64,7 +56,6 @@ export const Rating = styled('div', {
 
   img: {
     width: 'auto',
-    height: 'auto',
   },
 })
 
@@ -105,9 +96,6 @@ export const Description = styled('p', {
 
   variants: {
     lines: {
-      2: {
-        WebkitLineClamp: 2,
-      },
       4: {
         WebkitLineClamp: 4,
       },

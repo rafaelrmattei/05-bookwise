@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { PopularBook } from '@/@types/rating'
+import { PopularBookType } from '@/@types/book'
 import { prisma } from '@/lib/prisma'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end()
   }
 
-  const result: PopularBook[] = await prisma.$queryRaw<PopularBook[]>`
+  const results: PopularBookType[] = await prisma.$queryRaw<PopularBookType[]>`
     SELECT
       r."bookId",
       AVG(r.rate)::int AS "rateAvg",
@@ -22,10 +22,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     LIMIT 3;
   `
 
-  const serialized = result.map((item) => ({
-    ...item,
-    rateAvg: Number(item.rateAvg),
-  }))
-
-  return res.status(200).json(serialized)
+  return res.status(200).json(results)
 }

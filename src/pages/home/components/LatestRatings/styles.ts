@@ -2,7 +2,7 @@ import { keyframes } from '@stitches/react'
 
 import { styled } from '@/styles/stitches.config'
 
-export const MostRecentContainer = styled('section', {
+export const LatestRatingsContainer = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',

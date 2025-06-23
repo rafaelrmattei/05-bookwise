@@ -11,6 +11,8 @@ interface HeaderProps {
 export function Header({ pathname }: HeaderProps) {
   const page = pageItems.find((page) => page.href === pathname)
 
+  if (['', '/', '/login', '/404'].includes(pathname)) return false
+
   if (!page) {
     return (
       <HeaderContainer>
