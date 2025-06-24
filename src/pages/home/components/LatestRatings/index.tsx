@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer'
 
 import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
-import { PublicRatingCardSkeleton } from '@/components/Card/Rating/Public'
 import { Loader } from '@/components/Loader'
 import { api } from '@/lib/axios'
 
@@ -43,25 +42,16 @@ export function LatestRatings() {
     }
   }, [inView, hasNextPage, fetchNextPage, isLoading])
 
-  return (
-    <LatestRatingsContainer>
-      <HeadingCards title="Avaliações mais recentes" />
-      {isLoading ? (
-        <>
-          <PublicRatingCardSkeleton />
-          <PublicRatingCardSkeleton />
-          <PublicRatingCardSkeleton />
-          <PublicRatingCardSkeleton />
-        </>
-      ) : (
-        <>
-          {LatestRatings &&
-            LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
-          {hasNextPage && <Loader refProp={ref} />}
-        </>
-      )}
-    </LatestRatingsContainer>
-  )
+  if (LatestRatings) {
+    return (
+      <LatestRatingsContainer>
+        <HeadingCards title="Avaliações mais recentes" />
+
+        {LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
+        {hasNextPage && <Loader refProp={ref} />}
+      </LatestRatingsContainer>
+    )
+  }
 }
 
 LatestRatings.displayName = 'LatestRatings'

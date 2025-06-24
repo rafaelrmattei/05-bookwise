@@ -10,7 +10,6 @@ import { pageItems, pageLogoutRedirect } from '@/config/pages'
 import { SessionContext } from '@/contexts/Session/SessionContext'
 
 import { Avatar } from '../Avatar'
-import { Skeleton } from '../Skeleton'
 import { SidebarContainer, SidebarFooter, SidebarHeader, SidebarNav, SignOutButton, User } from './styles'
 
 interface SidebarProps {
@@ -31,7 +30,7 @@ export function Sidebar({ pathname }: SidebarProps) {
         <Image src={LogoImageSrc} width={128} height={25} quality={100} alt="BookWise Logo" priority />
       </SidebarHeader>
 
-      {status !== 'loading' ? (
+      {status !== 'loading' && (
         <>
           <SidebarNav>
             {pageItems
@@ -59,17 +58,6 @@ export function Sidebar({ pathname }: SidebarProps) {
                 <SignIn size={20} />
               </Link>
             )}
-          </SidebarFooter>
-        </>
-      ) : (
-        <>
-          <SidebarNav>
-            <Skeleton width={'50%'} height={30} />
-            <Skeleton width={'50%'} height={30} />
-            <Skeleton width={'50%'} height={30} />
-          </SidebarNav>
-          <SidebarFooter>
-            <Skeleton width={'50%'} height={30} />
           </SidebarFooter>
         </>
       )}
