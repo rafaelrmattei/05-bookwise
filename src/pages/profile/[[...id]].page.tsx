@@ -6,7 +6,7 @@ import { BookStatisticsType } from '@/@types/book'
 import { api } from '@/lib/axios'
 
 import { authOptions } from '../api/auth/[...nextauth].api'
-import { Ratings } from './components/ratings/index.page'
+import { Ratings } from './components/ratings'
 import { Statistics } from './components/statistics'
 import { UserDetails } from './components/user'
 import { Analytics, Divider, ProfileContainer } from './styles'
