@@ -34,7 +34,7 @@ export function Sidebar({ pathname }: SidebarProps) {
         <>
           <SidebarNav>
             {pageItems
-              .filter(({ isSignedIn }) => !isSignedIn || !!session)
+              .filter(({ isSignedIn }) => !isSignedIn || !!session || pathname === '/profile')
               .map(({ href, label, icon: Icon }) => (
                 <Link key={href} href={href} data-active={pathname === href}>
                   <Icon size={24} />

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { PopularBookType } from '@/@types/book'
-import { BookCard } from '@/components/Card/Book'
+import { PopularBookCard } from '@/components/Card/Book/Popular'
 import { api } from '@/lib/axios'
 
 import { HeadingCards } from '../HeadingCards'
@@ -20,7 +20,7 @@ export function PopularBooks() {
         <HeadingCards title="Livros populares" link={{ title: 'Ver todos', href: 'explore' }} />
 
         {PopularBooksByRating.map((popularBook) => (
-          <BookCard key={popularBook.bookId} book={popularBook} />
+          <PopularBookCard key={popularBook.bookId} book={popularBook} />
         ))}
       </PopularBooksContainer>
     )

@@ -15,12 +15,12 @@ export const Info = styled('div', {
   flexDirection: 'column',
   justifyContent: 'space-between',
   width: '100%',
+  padding: '$1 0',
 })
 
 export const Header = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: 'calc(100% - 55px + 1.25rem)',
 
   strong: {
     color: '$gray100',
@@ -38,21 +38,4 @@ export const Header = styled('div', {
     fontSize: '$sm',
     fontWeight: '$base',
   },
-})
-
-export const ReadedFlag = styled('div', {
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  content: 'LIDO',
-  width: 53,
-  height: 24,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '$green300',
-  fontSize: '$xs',
-  fontWeight: '$bold',
-  color: '$green100',
-  borderRadius: '0 $2sm 0 $2sm',
 })

@@ -12,11 +12,22 @@ export const LayoutContainer = styled('div', {
 export const Wrapper = styled('div', {
   position: 'relative',
   padding: '0 6rem',
+  height: 'calc(-2.5rem + 100dvh)',
 })
 
 export const Main = styled('main', {
-  height: 'calc(100dvh - 170px)',
-  maxHeight: 'calc(100dvh - 170px)',
+  height: '100%',
+
+  variants: {
+    hasHeader: {
+      true: {
+        maxHeight: 'calc(100dvh - 170px)',
+      },
+      false: {
+        maxHeight: 'calc(-2.5rem + 100dvh)',
+      },
+    },
+  },
 })
 
 export const NotFoundContainer = styled('div', {

@@ -1,3 +1,5 @@
+import { Book } from '@prisma/client'
+
 export type BookStatisticsType = {
   totalPagesReaded: number
   totalBooksReaded: number
@@ -10,5 +12,10 @@ export type PopularBookType = {
   coverUrl: string
   title: string
   author: string
+  rateAvg: number
+}
+
+export type BookWithReadedFlagAnbRatingType = Book & {
+  readed: boolean
   rateAvg: number
 }

@@ -1,27 +1,29 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
+import { Loader } from '@/components/Loader'
 import { api } from '@/lib/axios'
 
 import { HeadingCards } from '../HeadingCards'
-import { LatestRatingsContainer, Loader, LoaderContainer } from './styles'
+import { LatestRatingsContainer } from './styles'
 
-interface RatingPage {
+interface LatestRatingsProps {
   ratings: RatingWithBookAndUserType[]
   hasMore: boolean
 }
 
 export function LatestRatings() {
-  const loadMoreLatestRatings = useRef<HTMLDivElement | null>(null)
+  const [ref, inView] = useInView()
 
   const {
     data: LatestRatings,
     isLoading: isLoadingLatestRatings,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<RatingPage>({
+  } = useInfiniteQuery<LatestRatingsProps>({
     queryKey: ['latest-ratings'],
     initialPageParam: 1,
     queryFn: async ({ pageParam = 1 }) => {
@@ -35,32 +37,17 @@ export function LatestRatings() {
   })
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !isLoadingLatestRatings && hasNextPage) {
-        fetchNextPage()
-      }
-    })
-
-    const el = loadMoreLatestRatings.current
-    if (el) observer.observe(el)
-
-    return () => {
-      if (el) observer.unobserve(el)
+    if (inView && hasNextPage && !isLoadingLatestRatings) {
+      fetchNextPage()
     }
-  }, [fetchNextPage, hasNextPage, isLoadingLatestRatings])
+  }, [inView, hasNextPage, fetchNextPage, isLoadingLatestRatings])
 
   if (LatestRatings) {
     return (
       <LatestRatingsContainer>
         <HeadingCards title="Avaliações mais recentes" />
-
         {LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
-
-        {hasNextPage && (
-          <LoaderContainer ref={loadMoreLatestRatings}>
-            <Loader />
-          </LoaderContainer>
-        )}
+        {hasNextPage && <Loader refProp={ref} />}
       </LatestRatingsContainer>
     )
   }

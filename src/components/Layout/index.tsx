@@ -17,13 +17,14 @@ export function Layout({ children }: LayoutProps) {
   const pathname = usePathname() || '/'
   const first = pathname.split('/')[1] || ''
   const rootPath = first ? `/${first}` : first
+  const hasHeader = !['', '/', '/login', '/404'].includes(rootPath)
 
   return (
     <LayoutContainer>
-      {['/', '', '/login'].includes(rootPath) ? <Hero /> : <Sidebar pathname={rootPath} />}
+      {['', '/', '/login'].includes(rootPath) ? <Hero /> : <Sidebar pathname={rootPath} />}
       <Wrapper>
-        <Header pathname={rootPath} />
-        <Main>{children}</Main>
+        {hasHeader && <Header pathname={rootPath} />}
+        <Main hasHeader={hasHeader}>{children}</Main>
       </Wrapper>
     </LayoutContainer>
   )

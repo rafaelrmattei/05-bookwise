@@ -3,17 +3,15 @@ import Image from 'next/image'
 import { PopularBookType } from '@/@types/book'
 import { Stars } from '@/components/Stars'
 
-import { BookCardContainer, Header, Info, ReadedFlag } from './styles'
+import { BookCardContainer, Header, Info } from './styles'
 
-interface BookCardProps {
-  readed?: boolean
+interface PopularBookCardProps {
   book: PopularBookType
 }
 
-export function BookCard({ readed = false, book }: BookCardProps) {
+export function PopularBookCard({ book }: PopularBookCardProps) {
   return (
     <BookCardContainer>
-      {readed && <ReadedFlag>LIDO</ReadedFlag>}
       <Image src={book.coverUrl} alt={book.title} width={64} height={94} />
       <Info>
         <Header>
@@ -26,4 +24,4 @@ export function BookCard({ readed = false, book }: BookCardProps) {
   )
 }
 
-BookCard.displayName = 'BookCard'
+PopularBookCard.displayName = 'PopularBookCard'

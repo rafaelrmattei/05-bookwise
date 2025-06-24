@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const results: PopularBookType[] = await prisma.$queryRaw<PopularBookType[]>`
     SELECT
       r."bookId",
-      AVG(r.rate)::int AS "rateAvg",
+      COALESCE(AVG(r.rate))::int AS "rateAvg",
       b.title,
       b.author,
       b."coverUrl"

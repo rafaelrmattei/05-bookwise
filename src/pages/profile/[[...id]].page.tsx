@@ -23,7 +23,7 @@ interface ProfileProps {
 export default function Profile({ user, statistics }: ProfileProps) {
   const [search, setSearch] = useState('')
 
-  const { data: RatingsByUser } = useQuery({
+  const { data: RatingsByUser, isLoading } = useQuery({
     queryKey: ['ratings-by-user', user.id],
     queryFn: async () => await api.get<RatingWithBookAndUserType[]>(`/ratings/${user.id}`).then((res) => res.data),
     staleTime: 1000 * 60 * 1,
@@ -49,7 +49,9 @@ export default function Profile({ user, statistics }: ProfileProps) {
     <ProfileContainer>
       <Ratings>
         <SearchInput placeholder="Buscar livro avaliado" value={search} onChange={handleSearch} full />
-        {filteredRatings.length > 0 ? (
+        {isLoading ? (
+          <NotFound>Carregando avaliações...</NotFound>
+        ) : filteredRatings.length > 0 ? (
           filteredRatings.map((rating) => <RatingCard key={rating.id} rating={rating} type="User" />)
         ) : (
           <NotFound>Nenhum resultado encontrado.</NotFound>
@@ -75,14 +77,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       redirect: {
         destination: '/404',
-        permanent: false,
+        permanent: true,
       },
     }
   }
 
   try {
-    const { data: statistics } = await api.get<BookStatisticsType>(`/books/user/${clientId}`)
     const { data: user } = await api.get<User>(`/users/${clientId}`)
+    const { data: statistics } = await api.get<BookStatisticsType>(`/books/user/${clientId}`)
 
     return {
       props: {
@@ -94,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       redirect: {
         destination: '/404',
-        permanent: false,
+        permanent: true,
       },
     }
   }
