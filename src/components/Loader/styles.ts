@@ -1,4 +1,4 @@
-import { keyframes, styled } from '@stitches/react'
+import { keyframes, styled } from '@/styles/stitches.config'
 
 export const LoaderContainer = styled('div', {
   display: 'inline-flex',

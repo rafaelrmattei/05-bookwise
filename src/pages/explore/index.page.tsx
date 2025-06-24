@@ -7,6 +7,7 @@ import { BookCard } from '@/components/Card/Book/Book'
 import { Loader } from '@/components/Loader'
 import { api } from '@/lib/axios'
 
+import { CategoriesFilter } from './components/CategoriesFilter'
 import { ExploreContainer } from './styles'
 
 interface ExploreProps {
@@ -43,6 +44,7 @@ export default function Explore() {
 
   return (
     <ExploreContainer>
+      <CategoriesFilter />
       {ListOfBooks && ListOfBooks.pages.flatMap((page) => page.books.map((book) => <BookCard key={book.id} book={book} />))}
       {hasNextPage && <Loader refProp={ref} />}
     </ExploreContainer>

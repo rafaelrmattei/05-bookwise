@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react'
+import { styled } from '@/styles/stitches.config'
 
 export const StarsContainer = styled('div', {
   display: 'inline-flex',
