@@ -1,10 +1,9 @@
 import { styled } from '@/styles/stitches.config'
 
-export const ExploreContainer = styled('div', {
-  display: 'grid',
-  gridTemplateColumns: '32% 32% 32%',
-  maxHeight: 'inherit',
-  gap: '3% 2%',
+export const RatingsContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$10',
   height: '100%',
   overflowX: 'auto',
 
@@ -17,4 +16,10 @@ export const ExploreContainer = styled('div', {
   '&::-webkit-scrollbar': {
     display: 'none',
   },
+})
+
+export const NotFound = styled('div', {
+  textAlign: 'center',
+  color: '$gray100',
+  fontSize: '$lg',
 })

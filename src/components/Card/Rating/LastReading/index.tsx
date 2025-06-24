@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Stars } from '@/components/Stars'
 
 import { SharedRatingCardProps } from '..'
-import { BookInfo, Description, Header, Rating, RatingCardContainer } from './styles'
+import { BookInfo, Description, Header, Info, Rating, RatingCardContainer } from './styles'
 
 export function LastReadingRatingCard({
   rating,
@@ -17,7 +17,7 @@ export function LastReadingRatingCard({
     <RatingCardContainer>
       <Rating>
         <Image src={rating.book.coverUrl} alt={rating.book.title} width={120} height={160} />
-        <div>
+        <Info>
           <Header>
             <div>{postedAtTimeAgo}</div>
             <Stars rate={rating.rate} />
@@ -31,7 +31,7 @@ export function LastReadingRatingCard({
 
             {expansiveDescription && !expandedDescription && <button onClick={() => setExpandedDescription(!expandedDescription)}>ver mais</button>}
           </BookInfo>
-        </div>
+        </Info>
       </Rating>
     </RatingCardContainer>
   )

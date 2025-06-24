@@ -16,16 +16,16 @@ export const Rating = styled('div', {
   gap: '$8',
   color: '$gray300',
 
-  '> div': {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$3',
-    width: '100%',
-  },
-
   img: {
     width: 'auto',
   },
+})
+
+export const Info = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$3',
+  width: '100%',
 })
 
 export const Header = styled('div', {
@@ -60,7 +60,7 @@ export const BookInfo = styled('div', {
   },
 })
 
-export const Description = styled('p', {
+export const Description = styled('div', {
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
   overflow: 'hidden',

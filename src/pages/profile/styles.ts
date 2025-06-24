@@ -7,24 +7,6 @@ export const ProfileContainer = styled('div', {
   maxHeight: 'inherit',
 })
 
-export const Ratings = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$10',
-  height: '100%',
-  overflowX: 'auto',
-
-  scrollBehavior: 'smooth',
-
-  scrollbarWidth: 'none',
-  '-ms-overflow-style': 'none',
-  WebkitOverflowScrolling: 'touch',
-
-  '&::-webkit-scrollbar': {
-    display: 'none',
-  },
-})
-
 export const Analytics = styled('div', {
   display: 'flex',
   flexDirection: 'column',
@@ -39,10 +21,4 @@ export const Divider = styled('div', {
   height: 4,
   backgroundImage: '$gradient-horizontal',
   borderRadius: '$full',
-})
-
-export const NotFound = styled('div', {
-  textAlign: 'center',
-  color: '$gray100',
-  fontSize: '$lg',
 })

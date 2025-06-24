@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer'
 
 import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
+import { PublicRatingCardSkeleton } from '@/components/Card/Rating/Public'
 import { Loader } from '@/components/Loader'
 import { api } from '@/lib/axios'
 
@@ -20,7 +21,7 @@ export function LatestRatings() {
 
   const {
     data: LatestRatings,
-    isLoading: isLoadingLatestRatings,
+    isLoading,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery<LatestRatingsProps>({
@@ -37,20 +38,30 @@ export function LatestRatings() {
   })
 
   useEffect(() => {
-    if (inView && hasNextPage && !isLoadingLatestRatings) {
+    if (inView && hasNextPage && !isLoading) {
       fetchNextPage()
     }
-  }, [inView, hasNextPage, fetchNextPage, isLoadingLatestRatings])
+  }, [inView, hasNextPage, fetchNextPage, isLoading])
 
-  if (LatestRatings) {
-    return (
-      <LatestRatingsContainer>
-        <HeadingCards title="Avaliações mais recentes" />
-        {LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
-        {hasNextPage && <Loader refProp={ref} />}
-      </LatestRatingsContainer>
-    )
-  }
+  return (
+    <LatestRatingsContainer>
+      <HeadingCards title="Avaliações mais recentes" />
+      {isLoading ? (
+        <>
+          <PublicRatingCardSkeleton />
+          <PublicRatingCardSkeleton />
+          <PublicRatingCardSkeleton />
+          <PublicRatingCardSkeleton />
+        </>
+      ) : (
+        <>
+          {LatestRatings &&
+            LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
+          {hasNextPage && <Loader refProp={ref} />}
+        </>
+      )}
+    </LatestRatingsContainer>
+  )
 }
 
 LatestRatings.displayName = 'LatestRatings'
