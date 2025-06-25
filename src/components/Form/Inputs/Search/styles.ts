@@ -11,6 +11,18 @@ export const SearchInputContainer = styled('div', {
         maxWidth: '100%',
       },
     },
+    absolute: {
+      true: {
+        position: 'absolute',
+        right: '6rem',
+        top: '2.5rem',
+      },
+    },
+  },
+
+  defaultVariants: {
+    full: false,
+    absolute: false,
   },
 
   '&:focus-within': {

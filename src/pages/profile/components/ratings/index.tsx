@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
 import { SearchInput } from '@/components/Form/Inputs/Search'
+import { LoaderText } from '@/components/Loader/Text'
 import { api } from '@/lib/axios'
 
 import { NotFound, RatingsContainer } from './styles'
@@ -41,7 +42,7 @@ export function Ratings({ userId }: RatingsProps) {
     <RatingsContainer>
       <SearchInput placeholder="Buscar livro avaliado" value={search} onChange={handleSearch} full />
       {isLoading ? (
-        <NotFound>Carregando avaliações...</NotFound>
+        <LoaderText message="Buscando avaliações..." />
       ) : filteredRatings.length > 0 ? (
         filteredRatings.map((rating) => <RatingCard key={rating.id} rating={rating} type="User" />)
       ) : (

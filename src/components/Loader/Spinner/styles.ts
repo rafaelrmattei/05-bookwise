@@ -6,7 +6,6 @@ export const LoaderContainer = styled('div', {
   justifyContent: 'center',
   height: 60,
   width: '100%',
-  gridColumn: '1 / -1',
 })
 
 const layers1 = keyframes({

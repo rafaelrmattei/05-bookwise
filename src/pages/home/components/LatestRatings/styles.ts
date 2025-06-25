@@ -5,3 +5,9 @@ export const LatestRatingsContainer = styled('section', {
   flexDirection: 'column',
   gap: '$4',
 })
+
+export const RefNextPage = styled('div', {
+  height: 60,
+  display: 'flex',
+  justifyContent: 'center',
+})

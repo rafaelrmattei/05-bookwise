@@ -8,6 +8,7 @@ export const BookCardContainer = styled('article', {
   display: 'flex',
   backgroundColor: '$gray700',
   gap: '$5',
+  height: 'fit-content',
 })
 
 export const Info = styled('div', {

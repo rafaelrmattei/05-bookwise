@@ -38,10 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (!userId) {
     return {
-      redirect: {
-        destination: '/404',
-        permanent: true,
-      },
+      notFound: true,
     }
   }
 
@@ -57,10 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   } catch {
     return {
-      redirect: {
-        destination: '/404',
-        permanent: true,
-      },
+      notFound: true,
     }
   }
 }

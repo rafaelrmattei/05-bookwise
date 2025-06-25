@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -15,9 +16,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const limit = 12
   const skip = (page - 1) * limit
 
+  const search = req.query.search?.toString().toLowerCase() ?? ''
+
+  const categoryIds = req.query.categoryIds
+    ? req.query.categoryIds
+        .toString()
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean)
+    : []
+
+  const categoryFilter = categoryIds.length ? Prisma.sql`AND cob."categoryId" IN (${Prisma.join(categoryIds)})` : Prisma.sql``
+
   const results: BookWithReadedFlagAnbRatingType[] = await prisma.$queryRaw<BookWithReadedFlagAnbRatingType[]>`
     SELECT
-      b.*,
+      DISTINCT(b.*),
       COALESCE(AVG(r.rate), 0) AS "rateAvg",
       EXISTS (
         SELECT 1 FROM "Rating" r2
@@ -26,13 +39,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       ) AS readed
     FROM "Book" b
     LEFT JOIN "Rating" r ON r."bookId" = b.id
-    GROUP BY b.id, b.title, b.author, b."coverUrl"
+    LEFT JOIN "CategoryOnBook" cob ON cob."bookId" = b.id
+    WHERE (
+      LOWER(b.title) LIKE ${'%' + search + '%'}
+      OR LOWER(b.author) LIKE ${'%' + search + '%'}
+    )
+    ${categoryFilter}
+    GROUP BY b.id
     ORDER BY b."createdAt" DESC
     LIMIT ${limit} OFFSET ${skip};
   `
-  const total = await prisma.book.count()
 
-  const hasMore = page * limit < total
+  const total: Array<{ totalOfBooks: number }> = await prisma.$queryRaw<Array<{ totalOfBooks: number }>>`
+    SELECT COUNT(DISTINCT b.id) as "totalOfBooks"
+    FROM "Book" b
+    LEFT JOIN "CategoryOnBook" cob ON cob."bookId" = b.id
+    WHERE (
+      LOWER(b.title) LIKE ${'%' + search + '%'}
+      OR LOWER(b.author) LIKE ${'%' + search + '%'}
+    )
+    ${categoryFilter};
+  `
+
+  const hasMore = page * limit < (total[0]?.totalOfBooks ?? 0)
 
   return res.status(200).json({
     books: results,

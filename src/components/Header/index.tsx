@@ -1,6 +1,5 @@
 import { pageItems } from '@/config/pages'
 
-import { SearchInput } from '../Form/Inputs/Search'
 import { ButtonBack } from './components/BackButton'
 import { HeaderContainer, PageTitle } from './styles'
 
@@ -27,8 +26,6 @@ export function Header({ pathname }: HeaderProps) {
         <Icon size={32} />
         <span>{label}</span>
       </PageTitle>
-
-      {pathname === '/explore' && <SearchInput type="text" placeholder="Buscar livro ou autor" />}
     </HeaderContainer>
   )
 }

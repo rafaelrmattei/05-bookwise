@@ -4,11 +4,11 @@ import { useInView } from 'react-intersection-observer'
 
 import { RatingWithBookAndUserType } from '@/@types/rating'
 import { RatingCard } from '@/components/Card/Rating'
-import { Loader } from '@/components/Loader'
+import { Loader } from '@/components/Loader/Spinner'
 import { api } from '@/lib/axios'
 
 import { HeadingCards } from '../HeadingCards'
-import { LatestRatingsContainer } from './styles'
+import { LatestRatingsContainer, RefNextPage } from './styles'
 
 interface LatestRatingsProps {
   ratings: RatingWithBookAndUserType[]
@@ -21,6 +21,7 @@ export function LatestRatings() {
   const {
     data: LatestRatings,
     isLoading,
+    isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery<LatestRatingsProps>({
@@ -46,9 +47,8 @@ export function LatestRatings() {
     return (
       <LatestRatingsContainer>
         <HeadingCards title="Avaliações mais recentes" />
-
         {LatestRatings.pages.flatMap((page) => page.ratings.map((rating) => <RatingCard key={rating.id} rating={rating} type="Public" />))}
-        {hasNextPage && <Loader refProp={ref} />}
+        {hasNextPage && <RefNextPage ref={ref}>{isFetchingNextPage && <Loader />}</RefNextPage>}
       </LatestRatingsContainer>
     )
   }
