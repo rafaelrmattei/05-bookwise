@@ -14,7 +14,7 @@ import { Box, LoginContainer, Titles } from './styles'
 export default function Login() {
   return (
     <>
-      <NextSeo title="Login" description="Faça seu login, ou acesse como visitante a nossa plataforma e descubra um novo mundo de leitura" />
+      <NextSeo title="Login" />
 
       <LoginContainer>
         <Box>

@@ -11,16 +11,11 @@ const seoConfig = {
     images: [
       {
         url: 'https://05-bookwise.vercel.app/images/seo.png',
-        width: 500,
-        height: 500,
+        width: 600,
+        height: 600,
         alt: 'Bookwise SEO Image',
       },
     ],
-  },
-  twitter: {
-    handle: '@bookwise',
-    site: '@bookwise',
-    cardType: 'summary_large_image',
   },
 }
 
