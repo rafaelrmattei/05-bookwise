@@ -1,6 +1,7 @@
 import { User } from '@prisma/client'
 import { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
+import { NextSeo } from 'next-seo'
 
 import { BookStatisticsType } from '@/@types/book'
 import { api } from '@/lib/axios'
@@ -18,15 +19,23 @@ interface ProfileProps {
 
 export default function Profile({ user, statistics }: ProfileProps) {
   return (
-    <ProfileContainer>
-      <Ratings userId={user.id} />
+    <>
+      <NextSeo
+        title="Profile"
+        description={`Perfil de ${user.name} com estatísticas de leitura.`}
+        canonical={`https://05-bookwise.vercel.app/profile/${user.id}`}
+      />
 
-      <Analytics>
-        <UserDetails user={user} />
-        <Divider />
-        <Statistics statistics={statistics} />
-      </Analytics>
-    </ProfileContainer>
+      <ProfileContainer>
+        <Ratings userId={user.id} />
+
+        <Analytics>
+          <UserDetails user={user} />
+          <Divider />
+          <Statistics statistics={statistics} />
+        </Analytics>
+      </ProfileContainer>
+    </>
   )
 }
 

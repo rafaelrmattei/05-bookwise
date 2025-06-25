@@ -1,5 +1,6 @@
 import { Category } from '@prisma/client'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { NextSeo } from 'next-seo'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
@@ -74,32 +75,40 @@ export default function Explore() {
   }
 
   return (
-    <ExploreContainer>
-      <SearchInput placeholder="Buscar livro avaliado" value={search} onChange={handleSearch} absolute />
+    <>
+      <NextSeo
+        title="Explorar"
+        description="Explore a nossa seção de livros e encontre o perfeito para você"
+        canonical="https://05-bookwise.vercel.app/explore"
+      />
 
-      {ListOfCategories && (
-        <CategoriesFilter>
-          {ListOfCategories.map((category) => (
-            <Filter key={category.id} onPressedChange={(pressed) => handleToggleCategory(category.id, pressed)}>
-              {category.name}
-            </Filter>
-          ))}
-        </CategoriesFilter>
-      )}
+      <ExploreContainer>
+        <SearchInput placeholder="Buscar livro avaliado" value={search} onChange={handleSearch} absolute />
 
-      {hasInteracted && isLoadingListOfBooks && <LoaderText message="Buscando livros..." />}
-
-      {ListOfBooks &&
-        ListOfBooks.pages.flatMap((page) =>
-          page.books
-            .filter((book) => {
-              const query = search.toLowerCase()
-              return book.title.toLowerCase().includes(query) || book.author.toLowerCase().includes(query)
-            })
-            .map((book) => <BookCard key={book.id} book={book} />)
+        {ListOfCategories && (
+          <CategoriesFilter>
+            {ListOfCategories.map((category) => (
+              <Filter key={category.id} onPressedChange={(pressed) => handleToggleCategory(category.id, pressed)}>
+                {category.name}
+              </Filter>
+            ))}
+          </CategoriesFilter>
         )}
 
-      {hasNextPage && <RefNextPage ref={ref}>{isFetchingNextPage && <Loader />}</RefNextPage>}
-    </ExploreContainer>
+        {hasInteracted && isLoadingListOfBooks && <LoaderText message="Buscando livros..." />}
+
+        {ListOfBooks &&
+          ListOfBooks.pages.flatMap((page) =>
+            page.books
+              .filter((book) => {
+                const query = search.toLowerCase()
+                return book.title.toLowerCase().includes(query) || book.author.toLowerCase().includes(query)
+              })
+              .map((book) => <BookCard key={book.id} book={book} />)
+          )}
+
+        {hasNextPage && <RefNextPage ref={ref}>{isFetchingNextPage && <Loader />}</RefNextPage>}
+      </ExploreContainer>
+    </>
   )
 }

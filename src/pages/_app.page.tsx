@@ -10,6 +10,8 @@ import { SessionContextProvider } from '@/contexts/Session/SessionContextProvide
 import { queryClient } from '@/lib/react-query'
 import { globalStyles } from '@/styles/global'
 
+import seoConfig from '../../next-seo.config'
+
 const nunito = Nunito({ subsets: ['latin'] })
 globalStyles()
 
@@ -29,22 +31,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <div className={nunito.className}>
           <SessionContextProvider>
-            <DefaultSeo
-              openGraph={{
-                type: 'website',
-                locale: 'pt_BR',
-                url: 'https://05-bookwise.vercel.app',
-                siteName: 'Bookwise',
-                images: [
-                  {
-                    url: '/images/seo.png',
-                    width: 500,
-                    height: 500,
-                    alt: 'Bookwise SEO Image',
-                  },
-                ],
-              }}
-            />
+            <DefaultSeo {...seoConfig} />
             {noLayout ? (
               <Component {...pageProps} />
             ) : (
