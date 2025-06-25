@@ -21,6 +21,7 @@
     "date-fns": "^4.1.0",
     "next": "15.3.3",
     "next-auth": "^4.24.11",
+    "next-seo": "^6.8.0",
     "phosphor-react": "^1.4.1",
     "react-dom": "^19.0.0",
     "react-intersection-observer": "^9.16.0",

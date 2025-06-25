@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { Nunito } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
+import { DefaultSeo } from 'next-seo'
 
 import { Layout } from '@/components/Layout'
 import { SessionContextProvider } from '@/contexts/Session/SessionContextProvider'
@@ -28,6 +29,22 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <div className={nunito.className}>
           <SessionContextProvider>
+            <DefaultSeo
+              openGraph={{
+                type: 'website',
+                locale: 'pt_BR',
+                url: 'https://05-bookwise.vercel.app',
+                siteName: 'Bookwise',
+                images: [
+                  {
+                    url: '/images/seo.png',
+                    width: 500,
+                    height: 500,
+                    alt: 'Bookwise SEO Image',
+                  },
+                ],
+              }}
+            />
             {noLayout ? (
               <Component {...pageProps} />
             ) : (
